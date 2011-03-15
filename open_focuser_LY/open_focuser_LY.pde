@@ -147,7 +147,6 @@ void process_cmd(char* cmd) {
 		Serial.println("< not understood.");
 	}
 }
-
 void move_focuser() {
 	if (stop == 1) {
 		motor.release();
@@ -157,15 +156,13 @@ stepsize=1;
 target_difference = target_position - position;
  if (abs(target_difference/10) >0)  stepsize=10;
 	if (target_difference > 0) {
-  
- // Serial.print( "divd by 10 : ");Serial.println(target_difference/10);
-  // Serial.print( "Stepsize : ");Serial.println(stepsize);
+
     
 		position = position+stepsize;
 		motor.step(stepsize, FORWARD, MICROSTEP);
 		write_status();
 	} else if (target_difference<0) {
- // Serial.print( "Back mod by 10 : ");Serial.println(target_difference%10);
+
 		position = position-stepsize;
 		motor.step(stepsize, BACKWARD, MICROSTEP);
 		write_status();

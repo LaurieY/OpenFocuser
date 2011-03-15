@@ -8,6 +8,9 @@
  * $Revision: 1.2 $
  * $Date: 2011/03/03 23:15:49 $
  */
+ /* Modded by LaurieY to replace AFMotor with LYMotor
+ 
+ **/
 
 #include <LYMotor.h>
 //#include <EEPROM.h>

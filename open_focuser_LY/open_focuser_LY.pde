@@ -1,3 +1,5 @@
+
+
 /*
  * Source for an Arduino+Adafruit motorshield based 
  * focus controller.
@@ -6,6 +8,13 @@
  * $Revision: 1.2 $
  * $Date: 2011/03/03 23:15:49 $
  */
+ /* Modded by LaurieY to replace AFMotor with LYMotor
+  * Source for an Arduino+pololu stepper driver based focus controller.
+  * $Source: "\electronics\Arduino\Projects\focuser\LaurieY-OpenFocuser\open_focuser_LY\open_focuser_LY.pde" $
+ * $Revision: 1.3 $
+ * $Date: 2011/03/15 21:22:49 $
+ *  Changed move_focuser to be quicker by stepping by unints of 10 
+  **/
 
 #include <LYMotor.h>
 //#include <EEPROM.h>
@@ -24,10 +33,13 @@ char  in_buffer[MAXLEN];
 int  temperature = 234;
 unsigned int	position = 0;
 unsigned int	target_position = 0;
+ int target_difference =0;
+ unsigned int stepsize=1;
 int stop = 0;
-#define VER "V Open_Focuser_1.0 - LEY"
+#define VER "V Open_Focuser_1.0"
 
-LY_Stepper motor(200, 2);
+//LY_Stepper motor(48, 2);
+LY_Stepper motor(200);
 
 
 void setup()
@@ -37,8 +49,10 @@ void setup()
 	Serial.begin(9600);
 	//delay(1000);
 	//Serial.println(VER);
+motor.enable();
+motor.setMicroSteps(8);
 	motor.setSpeed(60);
-	motor.release();
+	//motor.release();
 
 	temp = eeprom_read_word(&init_e_a);
 	if (temp != INIT_EEPROM_VALUE) {
@@ -139,13 +153,21 @@ void move_focuser() {
 		motor.release();
 		return;
 	}
-	if (target_position > position) {
-		position++;
-		motor.step(1, FORWARD, MICROSTEP);
+stepsize=1;
+target_difference = target_position - position;
+ if (abs(target_difference/10) >0)  stepsize=10;
+	if (target_difference > 0) {
+  
+ // Serial.print( "divd by 10 : ");Serial.println(target_difference/10);
+  // Serial.print( "Stepsize : ");Serial.println(stepsize);
+    
+		position = position+stepsize;
+		motor.step(stepsize, FORWARD, MICROSTEP);
 		write_status();
-	} else if (target_position < position) {
-		position--;
-		motor.step(1, BACKWARD, MICROSTEP);
+	} else if (target_difference<0) {
+ // Serial.print( "Back mod by 10 : ");Serial.println(target_difference%10);
+		position = position-stepsize;
+		motor.step(stepsize, BACKWARD, MICROSTEP);
 		write_status();
 	} else {
 		// no movement needed, power down stepper

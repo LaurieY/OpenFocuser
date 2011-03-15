@@ -96,7 +96,7 @@ pinMode(MOTORDIR,OUTPUT);
    
  //usteps= 8;
  // currentstep = 0;
- //  setSpeed(60); //DEFAULT
+ //  setSpeed(600); //DEFAULT
    setMicroSteps(8); //DEFAULT
 	
   
@@ -148,10 +148,14 @@ void LY_Stepper::enable( ) { //default setup of stepper motor, sets speed to 60 
  }
  }
 void LY_Stepper::setSpeed(uint16_t rpm) {
-  usperstep = 60000000 / (revsteps * rpm); //ignoring microstepp settings  valu is in microseconds
-  //Serial.print("rev step set to: "); Serial.println(revsteps, DEC);
-  //  Serial.print("rpm set to: "); Serial.println(rpm, DEC);
- // Serial.print("current step set to: "); Serial.println(usperstep, DEC);
+unsigned long fred = (long) revsteps * (long) rpm;
+Serial.print("Fred = : "); Serial.println(fred);
+  usperstep = (unsigned long) 60000000 / (( long)revsteps * (long) rpm* MICROSTEP); //ignoring microstepp settings  valu is in microseconds
+  Serial.print("rev step set to: "); Serial.println(revsteps, DEC);
+    Serial.print("rpm set to: "); Serial.println(rpm, DEC);
+  Serial.print("current step set to: "); Serial.println(usperstep);
+  Serial.println("---");
+
 //delay(3000);
   steppingcounter = 0;  // an absolute counter of position
   digitalWrite(MOTORNOTENABLE,LOW);
@@ -167,10 +171,10 @@ void LY_Stepper::step(uint16_t steps, uint8_t dir,  uint8_t style) { // styleIS 
 // Step number of microsteps or steps using the microstep value of 8
 //Serial.print("current step STILL: "); Serial.println(usperstep);
 //Serial.print("microsteps (style) : "); Serial.println(style);
-setMicroSteps(style);
-enable();
+//setMicroSteps(style);
+//enable();
   uint32_t uspers = usperstep;
- // Serial.print("uspers step : "); Serial.println(uspers);
+ //Serial.print("uspers step : "); Serial.println(uspers);
  //uspers=2000;
   uint8_t ret = 0;
 

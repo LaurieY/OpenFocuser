@@ -108,7 +108,7 @@ class LY_DCMotor
 class LY_Stepper {
  public:
   LY_Stepper(uint16_t steps);
-    LY_Stepper(uint16_t steps,uint16_t  motor);
+   LY_Stepper(uint16_t steps,uint16_t  motor);
   void step(uint16_t , uint8_t ,  uint8_t  );
   void step(uint16_t , uint8_t ); //use predetermined microsteps value
   void setSpeed(uint16_t);

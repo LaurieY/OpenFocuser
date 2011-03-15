@@ -29,8 +29,6 @@ void LYMotorController::enable(void) {
 #endif
 
 
-
-
   digitalWrite(MOTORNOTENABLE, LOW);
 }
 
@@ -98,8 +96,6 @@ pinMode(MOTORDIR,OUTPUT);
  // currentstep = 0;
  //  setSpeed(600); //DEFAULT
    setMicroSteps(8); //DEFAULT
-	
-  
 
 }
 LY_Stepper::LY_Stepper(uint16_t steps,uint16_t motor ) {
@@ -107,18 +103,10 @@ init(steps);
 }
 LY_Stepper::LY_Stepper(uint16_t steps) { // steps is basic # of full steps
 init(steps); 
-
-
  }
 
 void LY_Stepper::enable( ) { //default setup of stepper motor, sets speed to 60 and microsteps to 8
-
 }
-
-   
-   
-
- 
 
  void LY_Stepper::setMicroSteps(uint16_t micsteps){
  //set MS1,MS2,MS3 for the microstep values of Full, Half, Quarter,Eighth, Sixteen, given as 1,2,4,8,16

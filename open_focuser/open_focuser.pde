@@ -6,8 +6,10 @@
  * $Revision: 1.2 $
  * $Date: 2011/03/03 23:15:49 $
  */
+/* Changed by LaurieY to use Pokolu stepper driver using his LYMotor code instead of AFMotor
+*/
 
-#include <AFMotor.h>
+#include <LYMotor.h>
 //#include <EEPROM.h>
 #include <avr/eeprom.h> 
 
@@ -27,7 +29,7 @@ unsigned int	target_position = 0;
 int stop = 0;
 #define VER "V Open_Focuser_1.0"
 
-AF_Stepper motor(48, 2);
+LY_Stepper motor(48, 2);
 
 
 void setup()

@@ -18,7 +18,7 @@
 
 #include <LYMotor.h>
 //#include <EEPROM.h>
-#include <avr/eeprom.h> 
+// LEY  ****  #include <avr/eeprom.h> 
 
 
 
@@ -54,7 +54,7 @@ motor.setMicroSteps(8);
 	motor.setSpeed(60);
 	//motor.release();
 
-	temp = eeprom_read_word(&init_e_a);
+/**** LEY ignore eeprom code	temp = eeprom_read_word(&init_e_a);
 	if (temp != INIT_EEPROM_VALUE) {
 		eeprom_write_word(&init_e_a, INIT_EEPROM_VALUE);
 		//Serial.println("Position initialized to zero");
@@ -65,6 +65,10 @@ motor.setMicroSteps(8);
 		//Serial.print("Position read: ");
 		//Serial.println(position);
 	}
+****/
+  position=0;
+  target_position = position; // no movement right out of the gates
+  
 	//Serial.println("Ready");
 }
 
@@ -179,5 +183,5 @@ target_difference = target_position - position;
 }
 
 void write_status() {
-	eeprom_write_word(&position_e_a, position);
+	//  ** LEY ** eeprom_write_word(&position_e_a, position);
 }

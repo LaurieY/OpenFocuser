@@ -135,9 +135,10 @@ void LY_Stepper::enable( ) { //default setup of stepper motor, sets speed to 60 
  }
 void LY_Stepper::setSpeed(uint16_t rpm) {
 unsigned long fred = (long) revsteps * (long) rpm;
-Serial.print("Fred = : "); Serial.println(fred);
-  usperstep = (unsigned long) 60000000 / (( long)revsteps * (long) rpm* MICROSTEP); //ignoring microstepp settings  valu is in microseconds
+Serial.print("steps per min = : "); Serial.println(fred);
+  usperstep = (unsigned long) 60000000 / (( long)revsteps * (long) rpm* usteps); //ignoring microstepp settings  valu is in microseconds
   Serial.print("rev step set to: "); Serial.println(revsteps, DEC);
+   Serial.print("Microsteps set to: "); Serial.println(usteps, DEC);
     Serial.print("rpm set to: "); Serial.println(rpm, DEC);
   Serial.print("current step set to: "); Serial.println(usperstep);
   Serial.println("---");

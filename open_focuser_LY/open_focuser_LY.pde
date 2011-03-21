@@ -104,6 +104,7 @@ void process_cmd(char* cmd) {
 		Serial.print("M ");
 		Serial.println(temp);
 		target_position = temp;
+stop=0; //LEY
 	} else if (strcmp(cmd, "i") == 0) {
 		// is focuser moving?
 		Serial.print("I ");
@@ -128,7 +129,7 @@ void process_cmd(char* cmd) {
 	} else if (strcmp(cmd, "r") == 0) {
 		// release
 		Serial.println("R");
-		stop = 0;
+		stop = 2;
 	} else if (strcmp(cmd, "s") == 0) {
 		// stop
 		Serial.println("S");
@@ -147,11 +148,16 @@ void process_cmd(char* cmd) {
 		Serial.println("< not understood.");
 	}
 }
+
 void move_focuser() {
 	if (stop == 1) {
 		motor.release();
 		return;
 	}
+if (stop ==2) {
+  motor.release();
+  return;
+}
 stepsize=1;
 target_difference = target_position - position;
  if (abs(target_difference/10) >0)  stepsize=10;
@@ -168,7 +174,7 @@ target_difference = target_position - position;
 		write_status();
 	} else {
 		// no movement needed, power down stepper
-		motor.release();
+		//motor.release();
 	}
 }
 

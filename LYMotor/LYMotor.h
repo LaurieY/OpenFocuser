@@ -12,7 +12,7 @@
 
 #define MOTORDEBUG 1
 
-#define MICROSTEPS 8         // 8 or 16
+//#define MICROSTEPS 8         // 8 or 16
 /***
 #define MOTOR12_64KHZ _BV(CS20)  // no prescale
 #define MOTOR12_8KHZ _BV(CS21)   // divide by 8
@@ -40,7 +40,7 @@
 //#define SINGLE 1
 #define DOUBLE 2
 //#define INTERLEAVE 3
-#define MICROSTEP 8
+#define MICROSTEP 1
 
 /*
 #define LATCH 4
@@ -123,7 +123,7 @@ class LY_Stepper {
   uint32_t usperstep, steppingcounter ;
     void init(uint16_t steps);
  private:
-  uint8_t currentstep , usteps;
+  uint8_t currentstep , usteps ;
 
 
 };
